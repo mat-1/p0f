@@ -309,14 +309,30 @@ sig   = *:64-:0:265:31337,10:ws,nop,mss,ts,sok:ack+:0
 sig   = *:64-:0:1460:3,10:ws,nop,mss,sok,nop,nop:ecn,uptr+:0
 
 ; -------
-; masscan
+; Masscan
 ; -------
 
-label = s:unix:masscan:no set source port
+label = s:unix:masscan:No set source port
 sig   = 4:64+0:0:8960:mss*7,0:mss:df:0
 
 label = s:unix:masscan:
 sig   = 4:245+10:0:0:1024,0:::0
+
+; ----
+; ZMap
+; ----
+
+label = s:!:ZMap:TCP scan
+sys   = @unix,@win
+sig   = *:255:0:0:65535,0:::0
+
+; -----
+; Scapy
+; -----
+
+label = s:!:Scapy:Default TCP() packet
+sys   = @unix,@win
+sig   = *:64:0:0:8192,0::seq-:0
 
 ; -----------
 ; p0f-sendsyn
