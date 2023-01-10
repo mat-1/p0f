@@ -306,6 +306,10 @@ sig   = *:128:0:*:8192,2:mss,nop,ws,nop,nop,sok:df,id+:0
 sig   = *:128:0:*:8192,8:mss,nop,ws,nop,nop,sok:df,id+:0
 sig   = *:128:0:*:8192,2:mss,nop,ws,sok,ts:df,id+:0
 
+label = s:win:Windows:10
+sig   = 4:128:0:1460:65340,8:mss,nop,ws,nop,nop,sok:df,id+:0
+sig   = 4:128:0:1460:mss*44,8:mss,nop,ws,nop,nop,sok:df,id+:0
+
 ; Robots with distinctive fingerprints:
 
 label = s:win:Windows:7 (Websense crawler)
