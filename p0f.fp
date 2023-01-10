@@ -27,24 +27,28 @@ sig   = 1500
 ; Common DSL-specific values (1492 is canonical for PPPoE, but ISPs tend to
 ; horse around a bit):
 
-label = DSL
+label = PPPoE
 sig   = 1452
 sig   = 1454
 sig   = 1492
+
+label = L2TP
+sig   = 1456
 
 ; Miscellanous tunnels (including VPNs, IPv6 tunneling, etc):
 
 label = GIF
 sig   = 1240
+
+label = Probably IPsec or other VPN
 sig   = 1280
+sig   = 1400
 
 label = generic tunnel or VPN
 sig   = 1300
-sig   = 1400
 sig   = 1420
 sig   = 1440
 sig   = 1450
-sig   = 1460
 
 label = IPSec or GRE
 sig   = 1476
@@ -54,6 +58,122 @@ sig   = 1480
 
 label = PPTP
 sig   = 1490
+sig   = 1460
+
+; OpenVPN mssfix 1450 (default)
+
+label = OpenVPN UDP bs64 SHA1
+sig   = 1409
+
+label = OpenVPN TCP bs64 SHA1
+sig   = 1407
+
+label = OpenVPN UDP bs64 SHA1 lzo
+sig   = 1408
+
+label = OpenVPN TCP bs64 SHA1 lzo
+sig   = 1406
+
+label = OpenVPN UDP bs128 SHA1
+sig   = 1393
+
+label = OpenVPN TCP bs128 SHA1
+sig   = 1391
+
+label = OpenVPN UDP bs128 SHA1 lzo
+sig   = 1392
+
+label = OpenVPN TCP bs128 SHA1 lzo
+sig   = 1390
+
+label = OpenVPN UDP bs128 SHA256
+sig   = 1381
+
+label = OpenVPN TCP bs128 SHA256
+sig   = 1379
+
+label = OpenVPN UDP bs128 SHA256 lzo
+sig   = 1380
+
+label = OpenVPN TCP bs128 SHA256 lzo
+sig   = 1378
+
+; OpenVPN mssfix 1400
+
+label = OpenVPN UDP bs64 SHA1
+sig   = 1359
+
+label = OpenVPN TCP bs64 SHA1
+sig   = 1357
+
+label = OpenVPN UDP bs64 SHA1 lzo
+sig   = 1358
+
+label = OpenVPN TCP bs64 SHA1 lzo
+sig   = 1356
+
+label = OpenVPN UDP bs128 SHA1
+sig   = 1343
+
+label = OpenVPN TCP bs128 SHA1
+sig   = 1341
+
+label = OpenVPN UDP bs128 SHA1 lzo
+sig   = 1342
+
+label = OpenVPN TCP bs128 SHA1 lzo
+sig   = 1340
+
+label = OpenVPN UDP bs128 SHA256
+sig   = 1331
+
+label = OpenVPN TCP bs128 SHA256
+sig   = 1329
+
+label = OpenVPN UDP bs128 SHA256 lzo
+sig   = 1330
+
+label = OpenVPN TCP bs128 SHA256 lzo
+sig   = 1328
+
+; OpenVPN mssfix 1350
+
+label = OpenVPN UDP bs64 SHA1
+sig   = 1309
+
+label = OpenVPN TCP bs64 SHA1
+sig   = 1307
+
+label = OpenVPN UDP bs64 SHA1 lzo
+sig   = 1308
+
+label = OpenVPN TCP bs64 SHA1 lzo
+sig   = 1306
+
+label = OpenVPN UDP bs128 SHA1
+sig   = 1293
+
+label = OpenVPN TCP bs128 SHA1
+sig   = 1291
+
+label = OpenVPN UDP bs128 SHA1 lzo
+sig   = 1292
+
+label = OpenVPN TCP bs128 SHA1 lzo
+sig   = 1290
+
+label = OpenVPN UDP bs128 SHA256
+sig   = 1281
+
+label = OpenVPN TCP bs128 SHA256
+sig   = 1279
+
+label = OpenVPN UDP bs128 SHA256 lzo
+sig   = 1280
+
+label = OpenVPN TCP bs128 SHA256 lzo
+sig   = 1278
+
 
 ; Really exotic stuff:
 
@@ -216,10 +336,10 @@ label = s:unix:Mac OS X:10.x
 sig   = *:64:0:*:65535,1:mss,nop,ws,nop,nop,ts,sok,eol+1:df,id+:0
 sig   = *:64:0:*:65535,3:mss,nop,ws,nop,nop,ts,sok,eol+1:df,id+:0
 
-label = s:unix:MacOS X:10.9 or newer (sometimes iPhone or iPad)
+label = s:unix:Mac OS X:10.9 or newer (sometimes iPhone or iPad)
 sig   = *:64:0:*:65535,4:mss,nop,ws,nop,nop,ts,sok,eol+1:df,id+:0
 
-label = s:unix:iOS:iPhone or iPad
+label = s:unix:Mac OS X:iPhone or iPad
 sig   = *:64:0:*:65535,2:mss,nop,ws,nop,nop,ts,sok,eol+1:df,id+:0
 
 ; Catch-all rules:
@@ -572,7 +692,7 @@ sig   = 4:64:0:1460:mss*25,0:mss:df,id+:0
 
 [http:request]
 
-ua_os = Linux,Windows,iOS=[iPad],iOS=[iPhone],Mac OS X,FreeBSD,OpenBSD,NetBSD,Solaris=[SunOS]
+ua_os = Linux,Windows,Mac OS X,FreeBSD,OpenBSD,NetBSD,Solaris=[SunOS]
 
 ; -------
 ; Firefox
@@ -605,6 +725,8 @@ label = s:!:Firefox:10.x or newer
 sys   = Windows,@unix
 sig   = *:Host,User-Agent,Accept=[,*/*;q=],?Accept-Language=[;q=],Accept-Encoding=[gzip, deflate],?DNT=[1],Connection=[keep-alive],?Referer:Accept-Charset,Keep-Alive:Firefox/
 sig   = *:Host,User-Agent,Accept=[,*/*;q=],?Accept-Language=[;q=],Accept-Encoding=[gzip, deflate],?DNT=[1],?Referer,Connection=[keep-alive]:Accept-Charset,Keep-Alive:Firefox/
+sig   = *:Accept=[,*/*;q=],Accept-Encoding=[gzip, deflate],Accept-Language=[;q=],?Cache-Control,Host,?Pragma,User-Agent,Connection=[keep-alive]:Accept-Charset,Keep-Alive:Firefox/
+
 
 ; There is this one weird case where Firefox 10.x is indistinguishable
 ; from Safari 5.1:
@@ -635,6 +757,10 @@ label = s:!:MSIE:6
 sys   = Windows
 sig   = 0:Accept=[*/*],?Referer,User-Agent,Host:Keep-Alive,Connection,Accept-Encoding,Accept-Language,Accept-Charset:(compatible; MSIE
 sig   = 1:Accept=[*/*],Connection=[Keep-Alive],Host,?Pragma=[no-cache],?Range,?Referer,User-Agent:Keep-Alive,Accept-Encoding,Accept-Language,Accept-Charset:(compatible; MSIE
+
+label = g:!:MSIE:Mobile
+sys   = Windows
+sig   = 1:User-Agent=[IEMobile]::Windows Phone
 
 ; ------
 ; Chrome
@@ -700,6 +826,11 @@ sig   = 1:Host,Accept-Encoding=[gzip],Accept-Language=[en-US],Accept=[*/*;q=0.5]
 label = s:!:Android:4.x
 sys   = Linux
 sig   = 1:Host,Connection=[keep-alive],Accept=[,*/*;q=0.8],User-Agent,Accept-Encoding=[gzip,deflate],Accept-Language,Accept-Charset=[utf-16, *;q=0.7]::Android
+sig   = 1:Host,Connection=[keep-alive],Accept=[,*/*;q=0.8],User-Agent,Accept-Encoding=[gzip,deflate],Accept-Language,X-Requested-With=[com.android.browser]::Android
+
+label = g:!:Android:
+sys   = Linux
+sig   = 1:Host,User-Agent=[Android],::Android
 
 ; ------
 ; Safari
@@ -717,6 +848,12 @@ sig   = *:Host,User-Agent,Accept=[*/*],?Referer,Accept-Encoding=[gzip, deflate],
 label = s:!:Safari:5.0 or earlier
 sys   = Mac OS X
 sig   = 0:Host,User-Agent,Connection=[close]:Accept,Accept-Encoding,Accept-Language,Accept-Charset:CFNetwork/
+
+label = g:!:iOS Browser:
+sys   = Mac OS X
+sig   = *:Host,User-Agent=[iPad]::Mac OS X
+sig   = *:Host,User-Agent=[iPhone]::Mac OS X
+sig   = *:Host,User-Agent=[iPod]::Mac OS X
 
 ; ---------
 ; Konqueror
