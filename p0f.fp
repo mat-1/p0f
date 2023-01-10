@@ -537,10 +537,9 @@ sig   = *:64:0:*:mss*4,*:mss,nop,nop,ts,nop,ws:df:0
 sig   = *:64:0:*:mss*4,*:mss,nop,nop,sok,nop,ws:df:0
 
 label = s:unix:Linux:Linux 5.15.x
-sig   = 4:64:0:1320:mss*49,7:mss,sok,ts,nop,ws:df,id+:0 ; observed on ubuntu 18 with wsl
-sig   = 4:64:0:1460:mss*44,7:mss,sok,ts,nop,ws:df,id+:0 ; observed on ubuntu 20 on replit (google cloud)
-
-label = s:unix:Linux:Google Cloud
+; observed on ubuntu 18 with wsl
+sig   = 4:64:0:1320:mss*49,7:mss,sok,ts,nop,ws:df,id+:0
+; observed on ubuntu 20 on replit (google cloud)
 sig   = 4:64:0:1460:mss*44,7:mss,sok,ts,nop,ws:df,id+:0
 
 ; -------
