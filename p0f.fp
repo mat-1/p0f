@@ -484,7 +484,7 @@ label = s:other:Blackberry:
 sig   = *:128:0:1452:65535,0:mss,nop,nop,sok,nop,nop,ts::0
 
 label = s:other:Nintendo:3DS
-sig   = *:64:0:1360:32768,0:mss,nop,nop,sok:df,id+:0
+sig   = *:64:0:1360:%8192,0:mss,nop,nop,sok:df,id+:0
 
 label = s:other:Nintendo:Wii
 sig   = 4:64:0:1460:32768,0:mss,nop,nop,sok:df,id+:0
