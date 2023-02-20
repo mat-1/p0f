@@ -272,6 +272,10 @@ label = s:unix:Linux:(Android)
 sig   = *:64:0:*:mss*44,1:mss,sok,ts,nop,ws:df,id+:0
 sig   = *:64:0:*:mss*44,3:mss,sok,ts,nop,ws:df,id+:0
 
+label = s:unix:Linux:(Cloudflare Warp)
+sig   = *:64:0:1380:mss*44,13:mss,sok,ts,nop,ws:df,id+:0
+
+
 ; Catch-all rules:
 
 label = g:unix:Linux:3.x
@@ -307,8 +311,8 @@ sig   = *:128:0:*:8192,8:mss,nop,ws,nop,nop,sok:df,id+:0
 sig   = *:128:0:*:8192,2:mss,nop,ws,sok,ts:df,id+:0
 
 label = s:win:Windows:10
-sig   = 4:128:0:1460:65340,8:mss,nop,ws,nop,nop,sok:df,id+:0
-sig   = 4:128:0:1460:mss*44,8:mss,nop,ws,nop,nop,sok:df,id+:0
+sig   = *:128:0:1460:65340,8:mss,nop,ws,nop,nop,sok:df,id+:0
+sig   = *:128:0:1460:mss*44,8:mss,nop,ws,nop,nop,sok:df,id+:0
 
 ; Robots with distinctive fingerprints:
 
@@ -536,12 +540,16 @@ sig   = *:64:0:*:mss*4,*:mss,sok,ts,nop,ws:df:0
 sig   = *:64:0:*:mss*4,*:mss,nop,nop,ts,nop,ws:df:0
 sig   = *:64:0:*:mss*4,*:mss,nop,nop,sok,nop,ws:df:0
 
-label = s:unix:Linux:Linux 5.15.x
-; observed on ubuntu 18 with wsl
-sig   = 4:64:0:1320:mss*49,7:mss,sok,ts,nop,ws:df,id+:0
-; observed on ubuntu 20 on replit (google cloud)
-sig   = 4:64:0:1460:mss*44,7:mss,sok,ts,nop,ws:df,id+:0
+label = s:unix:Linux:5.4-5.15 (WSL)
+sig   = *:64:0:1320:mss*49,7:mss,sok,ts,nop,ws:df,id+:0
 
+label = s:unix:Linux:5.4-5.15 ; it might go higher/lower, haven't tested
+sig   = *:64:0:1460:mss*44,7:mss,sok,ts,nop,ws:df,id+:0
+
+label = s:unix:Linux:6.0.x
+; observed on several distros on kernel 6.0.12
+sig =   *:64:0:1460:63616,7:mss,sok,ts,nop,ws:df,id+:0
+        *:64:0:1460:63616,7:mss,sok,ts,nop,ws:df,id+:0
 ; -------
 ; Windows
 ; -------
