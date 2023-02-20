@@ -247,6 +247,17 @@ label = s:unix:Linux:2.0
 sig   = *:64:0:*:mss*12,0:mss::0
 sig   = *:64:0:*:16384,0:mss::0
 
+label = s:unix:Linux:5.x (WSL)
+sig   = *:64:0:1320:mss*49,7:mss,sok,ts,nop,ws:df,id+:0
+
+; it might go higher/lower, haven't tested
+label = s:unix:Linux:5.x
+sig   = *:64:0:1460:mss*44,7:mss,sok,ts,nop,ws:df,id+:0
+
+label = s:unix:Linux:6.x
+; observed on several distros on kernel 6.0.12
+sig =   *:64:0:1460:63616,7:mss,sok,ts,nop,ws:df,id+:0
+
 ; Just to keep people testing locally happy (IPv4 & IPv6):
 
 label = s:unix:Linux:3.x (loopback)
@@ -272,10 +283,10 @@ label = s:unix:Linux:(Android)
 sig   = *:64:0:*:mss*44,1:mss,sok,ts,nop,ws:df,id+:0
 sig   = *:64:0:*:mss*44,3:mss,sok,ts,nop,ws:df,id+:0
 
-label = s:unix:Linux:(maybe Cloudflare Warp)
+label = s:unix:Linux:(Cloudflare Warp)
 sig   = *:64:0:1380:mss*44,13:mss,sok,ts,nop,ws:df,id+:0
 
-label = s:unix:Linux:5.4-5.15 (maybe Oracle Cloud)
+label = s:unix:Linux:5.x (Oracle Cloud)
 sig   = *:64:0:8960:mss*7,7:mss,sok,ts,nop,ws:df,id+:0
 
 ; Catch-all rules:
@@ -541,17 +552,6 @@ sig   = *:64:0:*:mss*4,*:mss,nop,ws:df:0
 sig   = *:64:0:*:mss*4,*:mss,sok,ts,nop,ws:df:0
 sig   = *:64:0:*:mss*4,*:mss,nop,nop,ts,nop,ws:df:0
 sig   = *:64:0:*:mss*4,*:mss,nop,nop,sok,nop,ws:df:0
-
-label = s:unix:Linux:5.4-5.15 (WSL)
-sig   = *:64:0:1320:mss*49,7:mss,sok,ts,nop,ws:df,id+:0
-
-; it might go higher/lower, haven't tested
-label = s:unix:Linux:5.4-5.15
-sig   = *:64:0:1460:mss*44,7:mss,sok,ts,nop,ws:df,id+:0
-
-label = s:unix:Linux:6.0.x
-; observed on several distros on kernel 6.0.12
-sig =   *:64:0:1460:63616,7:mss,sok,ts,nop,ws:df,id+:0
 
 ; -------
 ; Windows
